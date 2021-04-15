@@ -1,10 +1,14 @@
 import React, { PropsWithChildren, ReactElement } from "react"
 
-type fallbackRender = (props: { error: Error | null }) => ReactElement
+type defaultError = Error | null
+type fallbackRender = (props: { error: defaultError }) => ReactElement
 
+/**
+ * 异常边界处理标签
+ */
 export class ErrorBoundary extends React.Component<
   PropsWithChildren<{ fallbackRender: fallbackRender }>,
-  { error: Error | null }
+  { error: defaultError }
 > {
   constructor(props: any) {
     super(props)
