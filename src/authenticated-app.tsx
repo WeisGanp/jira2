@@ -5,12 +5,32 @@ import styled from "@emotion/styled"
 import { Row } from "components/lib"
 import { ReactComponent as SoftwareLogo } from "asstes/cola.svg"
 import { Dropdown, Menu, Button } from "antd"
+import { BrowserRouter } from "react-router-dom"
+import { Route, Routes } from "react-router"
+import ProjectScreen from "screens/project"
+
 /**
  *用户登录后根页面组件
  *
  * @return {*}
  */
 const AuthenticatedApp = () => {
+  return (
+    <Container>
+      <PageHeader />
+      <Main>
+        <BrowserRouter>
+          <Routes>
+            <Route path={"/projects"} element={<ProjectListScreen />} />
+            <Route path={"/projects/:projectId"} element={<ProjectScreen />} />
+          </Routes>
+        </BrowserRouter>
+      </Main>
+    </Container>
+  )
+}
+
+const PageHeader = () => {
   const { logout, user } = useAuth()
   const menu = (
     <Menu>
@@ -22,23 +42,18 @@ const AuthenticatedApp = () => {
     </Menu>
   )
   return (
-    <Container>
-      <Header between={true} marginBottom={0.5}>
-        <HeaderLeft gap={true}>
-          <SoftwareLogo width={"2rem"} color={"rgb(38, 132, 255)"} />
-          <h2>项目</h2>
-          <h2>用户</h2>
-        </HeaderLeft>
-        <HeaderRight>
-          <Dropdown overlay={menu}>
-            <Button type={"link"}>Hi, {user?.name}</Button>
-          </Dropdown>
-        </HeaderRight>
-      </Header>
-      <Main>
-        <ProjectListScreen />
-      </Main>
-    </Container>
+    <Header between={true} marginBottom={0.5}>
+      <HeaderLeft gap={true}>
+        <SoftwareLogo width={"2rem"} color={"rgb(38, 132, 255)"} />
+        <h2>项目</h2>
+        <h2>用户</h2>
+      </HeaderLeft>
+      <HeaderRight>
+        <Dropdown overlay={menu}>
+          <Button type={"link"}>Hi, {user?.name}</Button>
+        </Dropdown>
+      </HeaderRight>
+    </Header>
   )
 }
 
