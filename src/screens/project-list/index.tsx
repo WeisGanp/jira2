@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useDebounce } from "util/index"
+import { useDebounce, useDocumnetTitle } from "util/index"
 import { List } from "./list"
 import { SearchPanel } from "./search-panel"
 import styled from "@emotion/styled"
@@ -24,6 +24,9 @@ export const ProjectListScreen = () => {
       ? asyncState.data.map((d, i) => ({ ...d, key: i }))
       : []
   }
+
+  useDocumnetTitle('项目列表', false)
+
   return (
     <Container>
       <h1>项目列表</h1>

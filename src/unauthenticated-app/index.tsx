@@ -6,6 +6,7 @@ import styled from "@emotion/styled"
 import logo from "asstes/logo.svg"
 import left from "asstes/left.svg"
 import right from "asstes/right.svg"
+import { useDocumnetTitle } from "util/index"
 /**
  * 用户未登录时显示组件（登录或注册）
  * @returns
@@ -13,6 +14,7 @@ import right from "asstes/right.svg"
 const useApp = () => {
   const [isRegister, setIsRegister] = useState(false)
   const [error, setError] = useState<Error | null>(null)
+  useDocumnetTitle("请登陆注册以继续")
   return (
     <Container>
       <Header />

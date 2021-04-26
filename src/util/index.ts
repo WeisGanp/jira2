@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 /**
  * 判断入参是否为false
  * @param value 
@@ -47,4 +47,19 @@ export function useDebounce<T>(value: T, delay: number) {
   }, [value, delay])
 
   return debouncedValue
+}
+
+export const useDocumnetTitle = (title: string, keepUnmount: boolean = true) => {
+  const oldTitle = useRef(document.title).current
+  const keep = useRef(keepUnmount).current
+  useEffect(() => {
+    document.title = title
+  }, [title])
+  useEffect(() => {
+    return () => {
+      if (!keep) {
+        document.title = oldTitle
+      }
+    }
+  }, [keep, oldTitle])
 }
