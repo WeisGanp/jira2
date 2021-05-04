@@ -7,16 +7,19 @@ import { Typography } from "antd"
 import { useProject } from "util/project"
 import { useUsers } from "util/user"
 import { Project } from "./index.d"
+import { useUrlQueryParams } from "util/url"
+
 /**
  * 项目列表页面根标签
  * @returns
  */
 export const ProjectListScreen = () => {
-  const [param, setParam] = useState({
+  const [, setParam] = useState({
     name: "",
     personId: "",
   })
-  const debouncedParam = useDebounce(param, 250)
+  const [params] = useUrlQueryParams(["name", "personId"])
+  const debouncedParam = useDebounce(params, 250)
   const { isError, isLoading, asyncState } = useProject(debouncedParam)
   const users = useUsers()
   const getDataSource = (): Project[] => {
@@ -25,13 +28,14 @@ export const ProjectListScreen = () => {
       : []
   }
 
-  useDocumnetTitle('项目列表', false)
+  useDocumnetTitle("项目列表", false)
+  console.log(useUrlQueryParams(["name"])[0])
 
   return (
     <Container>
       <h1>项目列表</h1>
       <SearchPanel
-        param={param}
+        param={params}
         setParam={setParam}
         users={users}
       ></SearchPanel>
@@ -48,6 +52,8 @@ export const ProjectListScreen = () => {
     </Container>
   )
 }
+
+ProjectListScreen.whyDidYouRender = true
 
 const Container = styled.div`
   padding: 3.2rem;
