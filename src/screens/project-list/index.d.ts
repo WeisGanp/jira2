@@ -1,9 +1,9 @@
 import { TableProps } from 'antd'
 
 export interface Project {
-  id: string
+  id: number
   name: string
-  personId: string
+  personId: number,
   pin: boolean
   organization: string
   created: string,
@@ -20,7 +20,7 @@ export interface TableListProps extends TableProps<Project> {
 }
 
 export interface User {
-  id: string
+  id: number
   name: string
   email: string
   title: string
@@ -29,10 +29,7 @@ export interface User {
 }
 
 export interface SearchPanelProps {
-  param: {
-    name: string
-    personId: string
-  }
+  param: Partial<Pick<Project, 'name' | 'personId'>>
   users: User[]
   setParam: (param: SearchPanelProps["param"]) => void
 }

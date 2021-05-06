@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from "react"
-import { Form, Input, Select } from "antd"
+import { Form, Input } from "antd"
 import { SearchPanelProps } from "./index.d"
+import { UserSelect } from "components/user-select"
 
 /**
  * 用户列表筛选及负责人下拉标签
@@ -25,22 +26,17 @@ export const SearchPanel = (props: SearchPanelProps) => {
         />
       </Form.Item>
       <Form.Item>
-        <Select
-          defaultValue={props.param.personId}
+        <UserSelect
+          value={props.param.personId}
           onChange={(value) =>
             props.setParam({
               ...props.param,
               personId: value,
             })
           }
-        >
-          <Select.Option value={""}>负责人</Select.Option>
-          {props.users.map((user) => (
-            <Select.Option key={user.name} value={user.id}>
-              {user.name}
-            </Select.Option>
-          ))}
-        </Select>
+          defaultOptionName={"负责人"}
+          options={props.users}
+        ></UserSelect>
       </Form.Item>
     </Form>
   )
