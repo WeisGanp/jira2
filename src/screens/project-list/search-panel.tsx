@@ -26,7 +26,7 @@ export const SearchPanel = (props: SearchPanelProps) => {
       </Form.Item>
       <Form.Item>
         <Select
-          value={props.param.personId}
+          defaultValue={props.param.personId}
           onChange={(value) =>
             props.setParam({
               ...props.param,
@@ -36,7 +36,7 @@ export const SearchPanel = (props: SearchPanelProps) => {
         >
           <Select.Option value={""}>负责人</Select.Option>
           {props.users.map((user) => (
-            <Select.Option key={user.id} value={user.id}>
+            <Select.Option key={user.name} value={user.id}>
               {user.name}
             </Select.Option>
           ))}

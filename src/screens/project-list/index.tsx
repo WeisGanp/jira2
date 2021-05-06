@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { useDebounce, useDocumnetTitle } from "util/index"
 import { List } from "./list"
 import { SearchPanel } from "./search-panel"
@@ -14,12 +14,8 @@ import { useUrlQueryParams } from "util/url"
  * @returns
  */
 export const ProjectListScreen = () => {
-  const [, setParam] = useState({
-    name: "",
-    personId: "",
-  })
-  const [params] = useUrlQueryParams(["name", "personId"])
-  const debouncedParam = useDebounce(params, 250)
+  const [param, setParam] = useUrlQueryParams(["name", "personId"])
+  const debouncedParam = useDebounce(param, 250)
   const { isError, isLoading, asyncState } = useProject(debouncedParam)
   const users = useUsers()
   const getDataSource = (): Project[] => {
@@ -35,7 +31,7 @@ export const ProjectListScreen = () => {
     <Container>
       <h1>项目列表</h1>
       <SearchPanel
-        param={params}
+        param={param}
         setParam={setParam}
         users={users}
       ></SearchPanel>
