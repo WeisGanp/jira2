@@ -3,13 +3,25 @@ import React from "react"
 import dayjs from "dayjs"
 import { TableListProps, Project } from "./index.d"
 import { Link } from "react-router-dom"
+import { Pin } from "components/pin"
+import { useEditProject } from "util/project"
 /**
  * 用户列表表格标签
  * @param param0
  * @returns
  */
 export const List = ({ users, ...props }: TableListProps) => {
+  const { mutate } = useEditProject()
+  const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin })
   const columns = [
+    {
+      title: <Pin checked={true} disabled={true} />,
+      render: (value: any, project: Project) => {
+        return (
+          <Pin checked={project.pin} onCheckedChnage={pinProject(project.id)} />
+        )
+      },
+    },
     {
       title: "名称",
       // dataIndex: "name",
